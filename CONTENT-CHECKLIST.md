@@ -58,3 +58,29 @@ these must be the *same wedding*:
 **Copy per frame** lives in `src/content/site.ts` → `reelFrames`
 (`en` label, `meta` EXIF caption, `alt` text). Update `alt` to describe
 the real photograph once supplied.
+
+## Selected films (homepage strip + /films)
+
+**Currently:** three placeholder 16:9 stills (`pnpm gen:home`) with
+placeholder couples, venues and loglines in `src/content/films.ts`.
+
+**Supply per film:** couple names, venue/city, a one-line logline, the
+teaser/feature runtime, year, and a 16:9 hero still (1600×900, WebP q~70)
+named `still-<slug>.webp` → `public/films/`. The video embed itself is
+wired on the /films case study in a later phase (lite-embed, click to
+play — never autoplay).
+
+## Services index (16-item taxonomy)
+
+**Telugu service labels** in `src/content/services.ts` are a first pass
+and MUST be reviewed by a native Telugu speaker before launch. The
+established ceremony names (హల్ది, సంగీత్, నిశ్చితార్థం, రిసెప్షన్, వోణి)
+are safe; the craft-service translations (cinematography, candid,
+portraits, maternity, etc.) especially need a native check. Each is a
+plain string field, CMS-ready.
+
+## Testimonials (homepage)
+
+**Currently:** three placeholder quotes in the site's voice
+(`src/content/testimonials.ts`). Replace with real couples' words plus
+written consent to publish name + city.

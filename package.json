@@ -8,7 +8,8 @@
     "start": "next start",
     "lint": "next lint",
     "gen:hero": "node scripts/generate-hero-frames.mjs",
-    "gen:reel": "node scripts/generate-reel-frames.mjs"
+    "gen:reel": "node scripts/generate-reel-frames.mjs",
+    "gen:home": "node scripts/generate-home-media.mjs"
   },
   "dependencies": {
     "gsap": "^3.13.0",
