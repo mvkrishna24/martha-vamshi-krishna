@@ -29,3 +29,32 @@ the type.
 
 **Alt/context note:** the sequence is decorative (headline carries the
 message); no alt text needed.
+
+## Ceremony Reel (homepage signature)
+
+**Currently:** five generated placeholder stills graded per ceremony
+(`pnpm gen:reel`), 4:5 portrait.
+
+**Supply:** one hero still per ceremony from a single real wedding, in
+chronological order — the reel walks one couple's day start to finish, so
+these must be the *same wedding*:
+
+1. `frame-pellikuthuru.webp` — Pellikuthuru / bridal prep
+2. `frame-haldi.webp` — Haldi (turmeric)
+3. `frame-sangeet.webp` — Sangeet (music night)
+4. `frame-muhurtham.webp` — Muhurtham (the vows)
+5. `frame-reception.webp` — Reception
+
+**Export spec:**
+
+- 4:5 portrait, 1500×1875 px, WebP quality ~70 (≤ ~180 KB each)
+- Named exactly as above → `public/reel/`
+- Compose with room around the subject: the giant Telugu ceremony name
+  sits *behind* the photo and bleeds out to either side, so busy edges
+  fight the watermark
+- Warm, low grade matches the site; the muhurtham frame reads best with
+  fire/lamp light
+
+**Copy per frame** lives in `src/content/site.ts` → `reelFrames`
+(`en` label, `meta` EXIF caption, `alt` text). Update `alt` to describe
+the real photograph once supplied.

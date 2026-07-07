@@ -149,6 +149,24 @@
     }
   }
 
+  /* film sprocket rail — the perforated edge of a 35mm strip.
+     an ink band with evenly-punched holes catching a little light.
+     pure CSS, one element, no images. */
+  .film-perf {
+    height: 1.125rem;
+    background-color: var(--color-ink);
+    background-image: repeating-linear-gradient(
+      to right,
+      transparent 0,
+      transparent 0.5rem,
+      color-mix(in srgb, var(--color-bone) 16%, transparent) 0.5rem,
+      color-mix(in srgb, var(--color-bone) 16%, transparent) 1.15rem,
+      transparent 1.15rem,
+      transparent 1.65rem
+    );
+    background-position: center;
+  }
+
   /* booking CTA — the kumkuma underline is one of its three sanctioned uses */
   .cta-book {
     position: relative;
