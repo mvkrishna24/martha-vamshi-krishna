@@ -3,6 +3,7 @@ import { fontVariables } from "@/lib/fonts";
 import { GrainOverlay } from "@/components/GrainOverlay";
 import { Nav } from "@/components/Nav";
 import { Footer } from "@/components/Footer";
+import { SmoothScroll } from "@/components/SmoothScroll";
 import { site } from "@/content/site";
 import "./globals.css";
 
@@ -22,6 +23,7 @@ export default function RootLayout({
   return (
     <html lang="en" className={fontVariables}>
       <body>
+        <SmoothScroll />
         <GrainOverlay />
         <Nav />
         <main className="pt-16">{children}</main>

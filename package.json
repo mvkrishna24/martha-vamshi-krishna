@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "gen:hero": "node scripts/generate-hero-frames.mjs"
   },
   "dependencies": {
     "gsap": "^3.13.0",
@@ -21,6 +22,7 @@
     "@types/react": "^19.1.0",
     "@types/react-dom": "^19.1.0",
     "postcss": "^8.5.0",
+    "sharp": "^0.35.3",
     "tailwindcss": "^4.1.10",
     "typescript": "^5.8.0"
   }
