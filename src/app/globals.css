@@ -1,0 +1,200 @@
+@import "tailwindcss";
+
+/* ————————————————————————————————————————————————
+   RD PHOTOGRAPHY — DESIGN TOKENS
+   Every colour in the product lives here. No ad-hoc hex.
+   ———————————————————————————————————————————————— */
+
+@theme {
+  /* palette */
+  --color-ink: #0f0b07; /* warm near-black canvas */
+  --color-ink-2: #1a140d; /* raised surfaces, cards */
+  --color-ink-3: #221a10; /* hover lift on raised surfaces */
+  --color-bone: #eae3d6; /* primary text */
+  --color-bone-dim: #9c927f; /* secondary text, captions — 6.4:1 on ink */
+  --color-brass: #c9a24b; /* turmeric-gold. rules, active states, one word per section */
+  --color-kumkuma: #a63a22; /* vermillion. wordmark dot, active nav marker, booking CTA underline. nothing else */
+  --color-hairline: color-mix(in srgb, #eae3d6 14%, transparent);
+
+  /* type scale — fluid, display never bolded */
+  --text-display-xl: clamp(3.25rem, 11vw, 11rem);
+  --text-display-xl--line-height: 0.95;
+  --text-display-lg: clamp(2.5rem, 6.5vw, 6rem);
+  --text-display-lg--line-height: 1;
+  --text-display-md: clamp(1.75rem, 3.5vw, 3.25rem);
+  --text-display-md--line-height: 1.1;
+  --text-caption: 0.6875rem;
+  --text-caption--line-height: 1.6;
+
+  --tracking-mono: 0.12em;
+
+  /* rhythm */
+  --spacing-section: clamp(6rem, 10vw, 10rem); /* ≥120px between sections on desktop */
+  --spacing-gutter: clamp(1.25rem, 4vw, 3.5rem);
+
+  /* motion */
+  --ease-reveal: cubic-bezier(0.22, 1, 0.36, 1);
+
+  /* kill default rounding — editorial, not SaaS */
+  --radius-*: initial;
+  --radius-thumb: 2px;
+}
+
+/* font slots — populated at runtime by next/font variables on <html> */
+@theme inline {
+  --font-display: var(--font-slot-display);
+  --font-body: var(--font-slot-body);
+  --font-mono: var(--font-slot-mono);
+  --font-telugu: var(--font-slot-telugu);
+}
+
+/* ————————————————————————————————————————————————
+   BASE
+   ———————————————————————————————————————————————— */
+
+@layer base {
+  html {
+    color-scheme: dark;
+    background-color: var(--color-ink);
+    /* no CSS smooth-scroll — Lenis owns scrolling on desktop */
+  }
+
+  body {
+    background-color: var(--color-ink);
+    color: var(--color-bone);
+    font-family: var(--font-body);
+    font-weight: 300;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  ::selection {
+    background-color: var(--color-brass);
+    color: var(--color-ink);
+  }
+
+  :focus-visible {
+    outline: 1px solid var(--color-brass);
+    outline-offset: 4px;
+  }
+
+  h1,
+  h2,
+  h3 {
+    font-family: var(--font-display);
+    font-weight: 200;
+  }
+}
+
+/* ————————————————————————————————————————————————
+   COMPONENTS
+   ———————————————————————————————————————————————— */
+
+@layer components {
+  /* site container: 12-col grid lives inside this */
+  .container-site {
+    margin-inline: auto;
+    max-width: calc(87.5rem + 2 * var(--spacing-gutter)); /* 1400px + gutters */
+    padding-inline: var(--spacing-gutter);
+  }
+
+  /* EXIF voice: mono, uppercase, letter-spaced, dim */
+  .eyebrow {
+    font-family: var(--font-mono);
+    font-size: var(--text-caption);
+    letter-spacing: var(--tracking-mono);
+    text-transform: uppercase;
+    color: var(--color-bone-dim);
+  }
+
+  /* film grain — one fixed compositor layer, zero JS.
+     tile is 2x viewport and jitters via steps(), like a projected print */
+  .grain {
+    position: fixed;
+    inset: -100% 0 0 -100%;
+    width: 200%;
+    height: 200%;
+    pointer-events: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    background-repeat: repeat;
+    opacity: 0.04;
+    will-change: transform;
+    animation: grain-jitter 0.9s steps(6) infinite;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .grain {
+      animation: none;
+    }
+  }
+
+  @keyframes grain-jitter {
+    0% {
+      transform: translate3d(0, 0, 0);
+    }
+    20% {
+      transform: translate3d(-3%, 2%, 0);
+    }
+    40% {
+      transform: translate3d(2%, -4%, 0);
+    }
+    60% {
+      transform: translate3d(-4%, -2%, 0);
+    }
+    80% {
+      transform: translate3d(3%, 4%, 0);
+    }
+    100% {
+      transform: translate3d(0, 0, 0);
+    }
+  }
+
+  /* film sprocket rail — the perforated edge of a 35mm strip.
+     an ink band with evenly-punched holes catching a little light.
+     pure CSS, one element, no images. */
+  .film-perf {
+    height: 1.125rem;
+    background-color: var(--color-ink);
+    background-image: repeating-linear-gradient(
+      to right,
+      transparent 0,
+      transparent 0.5rem,
+      color-mix(in srgb, var(--color-bone) 16%, transparent) 0.5rem,
+      color-mix(in srgb, var(--color-bone) 16%, transparent) 1.15rem,
+      transparent 1.15rem,
+      transparent 1.65rem
+    );
+    background-position: center;
+  }
+
+  /* booking CTA — the kumkuma underline is one of its three sanctioned uses */
+  .cta-book {
+    position: relative;
+    font-family: var(--font-mono);
+    font-size: var(--text-caption);
+    letter-spacing: var(--tracking-mono);
+    text-transform: uppercase;
+    color: var(--color-bone);
+    padding-bottom: 0.375rem;
+  }
+
+  .cta-book::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    height: 1px;
+    width: 100%;
+    background-color: var(--color-hairline);
+    background-image: linear-gradient(var(--color-kumkuma), var(--color-kumkuma));
+    background-size: 0% 1px;
+    background-repeat: no-repeat;
+    background-position: left bottom;
+    transition: background-size 0.5s var(--ease-reveal);
+  }
+
+  .cta-book:hover::after,
+  .cta-book:focus-visible::after {
+    background-size: 100% 1px;
+  }
+}
