@@ -5,9 +5,8 @@ import { Reveal } from "@/components/motion/Reveal";
 
 /**
  * The full 16-service taxonomy as a bilingual typographic index —
- * Telugu display over English mono, grouped Weddings / Family. Rendered
- * as an index rather than 16 separate links; the section CTA leads into
- * the galleries (deep-links land in Phase 5).
+ * Telugu display over English mono, grouped Weddings / Family. Each item
+ * deep-links to its photography gallery.
  */
 export function ServicesIndex() {
   return (
@@ -38,21 +37,22 @@ export function ServicesIndex() {
                 stagger={0.05}
               >
                 {group.services.map((service, i) => (
-                  <div
+                  <Link
                     key={service.slug}
+                    href={`/photography/${service.slug}`}
                     data-reveal-item
-                    className="flex items-start gap-3"
+                    className="group flex items-start gap-3"
                   >
                     <span className="eyebrow mt-1 text-brass tabular-nums">
                       {String(i + 1).padStart(2, "0")}
                     </span>
                     <span className="flex flex-col gap-1.5">
-                      <span lang="te" className="font-telugu text-lg leading-tight text-bone">
+                      <span lang="te" className="font-telugu text-lg leading-tight text-bone transition-colors duration-300 group-hover:text-brass">
                         {service.te}
                       </span>
                       <span className="eyebrow">{service.en}</span>
                     </span>
-                  </div>
+                  </Link>
                 ))}
               </Reveal>
             </div>

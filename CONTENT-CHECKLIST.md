@@ -84,3 +84,20 @@ plain string field, CMS-ready.
 **Currently:** three placeholder quotes in the site's voice
 (`src/content/testimonials.ts`). Replace with real couples' words plus
 written consent to publish name + city.
+
+## Galleries (/photography and /photography/[category])
+
+**Currently:** per-category placeholder covers plus a shared, varied-
+aspect placeholder pool (`pnpm gen:gallery`), wired through
+`src/content/galleries.ts`. All 16 categories share the same pool
+(rotated) — real galleries will each own their own images.
+
+**Supply per category:** a cover (4:5, 1000×1250, WebP q~70) named
+`cover-<slug>.webp`, and a set of gallery images at their true aspect
+ratios (the masonry embraces mixed ratios — portrait, landscape, square).
+Each image needs explicit width/height (already required by the data
+shape) so CLS stays ~0, plus real `alt` text and an EXIF `meta` caption.
+
+Replace the placeholder pool assignment in `galleries.ts` with a real
+per-category `images` array; the component layer does not change. Slugs
+are the canonical `service.slug` values and must stay stable.
